@@ -220,3 +220,35 @@ model = keras.Sequential([
 ])
 ```
 
+## SGD
+Stochastic Gradient Descent, 随机梯度下降
+
+### 基本梯度下降
+
+假设目标是最小化一个损失函数$L(\theta)$,参数是$\theta$ ，学习率是$\eta$,那么普通梯度下降公式是 
+$$ \theta_{t+1} = \theta_t - \eta \nabla_\theta L(\theta_t)
+$$
+
+$\nabla_\theta L_{\theta_{t}}$ 告诉我们损失在各个维度的变化方向和大小。
+
+$\eta$ 学习率，控制每次参数更新的幅度。
+
+更新方向是梯度的反方向，因为梯度指向上升最快的方向，我们要往下降
+
+### 随机梯度下降 SGD
+
+$$ \theta_{t+1} = \theta_t - \eta \nabla_\theta L(\theta_t)
+$$
+
+普通梯度下降每次都要用全量数据集计算梯度，这在大数据集上很慢。SGD 用的是 单样本 或 小批量（Mini-batch） 来近似梯度：
+
+$L_i(\theta_t)$ 只计算某个样本i或者一个batch的损失。但是梯度是近似的，会带上噪声，路径会抖动。
+
+### 加动量的SGD (Momentum)
+
+为了减少这种抖动，常加上动量项$v_t$
+
+$$ v_t = \beta v_{t-1} + \eta \nabla_\theta L_i(\theta_t) $$
+
+$\beta$ 动量系数，常取0.9
+类似惯性，上一次的梯度会加到当前梯度上，下降更平滑

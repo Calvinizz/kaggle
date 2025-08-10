@@ -1,6 +1,5 @@
 from conv import ConvNet
 import torch
-from data.MnistDataLoader import MnistDataloader
 from os.path import join
 from torch.utils.data import DataLoader
 from data_loader import load_data_torch
@@ -86,7 +85,8 @@ def train():
             output = convNet(img)
             loss = loss_fn(output, label)
             loss.backward()
-            optimizer.step()
+            optimizer.step() # 更新网络参数，执行一次优化步骤
+
             
             _,pred = torch.max(output.data, 1)
             num_correct = (pred == label).sum().item()
